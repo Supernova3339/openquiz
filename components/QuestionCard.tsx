@@ -6,12 +6,46 @@ class QuestionCard extends React.Component<{
     question: any;
     onAnswer: any;
 }> {
+    state = {
+        correctAnswerIndex: Math.floor(Math.random() * 4),
+    };
+
+    shuffleChoices = () => {
+        const choices = this.props.question.choices.slice(); // Create a copy of the choices array
+
+        // Shuffle the choices array to randomize their order
+        for (let i = choices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [choices[i], choices[j]] = [choices[j], choices[i]];
+        }
+
+        return choices;
+    };
+
+    setCorrectAnswerChoice = () => {
+        const shuffledChoices = this.shuffleChoices();
+        const correctAnswerChoice = shuffledChoices[this.state.correctAnswerIndex];
+
+        this.setState({ correctAnswerChoice });
+    };
+
+    handleAnswer = (userAnswer: string) => {
+        const isCorrect = userAnswer === this.props.question.correctAnswer;
+
+        this.props.onAnswer(isCorrect);
+    };
+
+    componentDidMount() {
+        this.setCorrectAnswerChoice();
+    }
+
     render() {
-        let { question, onAnswer } = this.props;
+        const { question } = this.props;
+
         const decodedQuestion = unescape(question.question);
         const choices = question.choices.slice(); // Create a copy of the choices array
 
-        // Shuffle the choices to randomize their order
+        // Shuffle the choices array to randomize their order
         for (let i = choices.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [choices[i], choices[j]] = [choices[j], choices[i]];
@@ -33,16 +67,16 @@ class QuestionCard extends React.Component<{
                         <div className="space-y-4">
                             <h2 className="text-xl">{decodedQuestion}</h2>
                             <div className="space-y-2">
-                                <p>A: {question.choices[0]}</p>
-                                <p>B: {question.choices[1]}</p>
-                                <p>C: {question.choices[2]}</p>
-                                <p>D: {question.choices[3]}</p>
+                                <p>A: {choiceMappings.A}</p>
+                                <p>B: {choiceMappings.B}</p>
+                                <p>C: {choiceMappings.C}</p>
+                                <p>D: {choiceMappings.D}</p>
                             </div>
                             <div className="flex justify-between space-x-4">
                                 {Object.keys(choiceMappings).map((option) => (
                                     <Button
                                         key={option}
-                                        onClick={() => onAnswer(choiceMappings[option] === question.correctAnswer)}
+                                        onClick={() => this.handleAnswer(choiceMappings[option])}
                                     >
                                         {option}
                                     </Button>

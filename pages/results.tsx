@@ -2,6 +2,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Layout from "@/components/Layout";
+import {Settings} from "lucide-react";
+import {useSettings} from "@/hooks/use-settings";
 
 const ResultsPage = () => {
     const router = useRouter();
@@ -26,22 +29,31 @@ const ResultsPage = () => {
         setTotalQuestions(initialTotalQuestions);
     }, [initialUserScore, initialTotalQuestions]);
 
+    const settings = useSettings();
+
     return (
-        <div className="flex items-center justify-center h-screen w-screen">
-            <Card className="w-[400px] p-4">
-                <CardContent>
-                    <CardTitle className="text-2xl font-semibold mb-4">Quiz Results</CardTitle>
-                    <p className="text-lg">
-                        Your Score: {userScore} / {totalQuestions}
-                    </p>
-                    <div className="flex justify-center mt-6">
-                        <Button onClick={restartQuiz}>
-                            Restart Quiz
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+        <Layout>
+            <div className="fixed top-4 right-4">
+                <Button onClick={settings.onOpen} variant="outline" size="icon">
+                    <Settings className="h-4 w-4" />
+                </Button>
+            </div>
+            <div className="flex items-center justify-center h-screen w-screen">
+                <Card className="w-[400px] p-4">
+                    <CardContent>
+                        <CardTitle className="text-2xl font-semibold mb-4">Quiz Results</CardTitle>
+                        <p className="text-lg">
+                            Your Score: {userScore} / {totalQuestions}
+                        </p>
+                        <div className="flex justify-center mt-6">
+                            <Button onClick={restartQuiz}>
+                                Restart Quiz
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </Layout>
     );
 };
 
