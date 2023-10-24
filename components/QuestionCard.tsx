@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-class QuestionCardStyled extends React.Component<{
+class QuestionCard extends React.Component<{
     question: any;
     onAnswer: any;
 }> {
@@ -56,4 +56,4 @@ class QuestionCardStyled extends React.Component<{
     }
 }
 
-export default QuestionCardStyled;
+export default QuestionCard;

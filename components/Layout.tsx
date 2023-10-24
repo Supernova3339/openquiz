@@ -1,5 +1,6 @@
 import {Component} from "react";
 import {ThemeProvider} from "next-themes";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 class Layout extends Component<{
     children: any
@@ -14,8 +15,9 @@ class Layout extends Component<{
                     enableSystem
                     disableTransitionOnChange
                 >
-                <nav />
-                {children}
+                    <nav />
+                    <ModalProvider />
+                    {children}
                 </ThemeProvider>
             </div>
         );

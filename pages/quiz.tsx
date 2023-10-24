@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../components/Layout';
-import ProgressBar from '../components/ProgressBar';
-import QuestionCard from '../components/QuestionCard';
+import Layout from '@/components/Layout';
+import ProgressBar from '@/components/ProgressBar';
+import QuestionCardStyled from '@/components/QuestionCard';
 import { fetchQuestions } from '@/utils/api';
+import { Button } from '@/components/ui/button';
+import {useSettings} from "@/hooks/use-settings";
+import { Loader2, Settings} from "lucide-react";
 
 const QuizPage = () => {
     const router = useRouter();
@@ -12,10 +15,11 @@ const QuizPage = () => {
     const [score, setScore] = useState(0);
     const [loading, setLoading] = useState(true);
     const [numQuestions] = useState(10);
+    const settings = useSettings();
 
     useEffect(() => {
         async function loadQuestions() {
-            const fetchedQuestions = await fetchQuestions({numQuestions: numQuestions});
+            const fetchedQuestions = await fetchQuestions({ numQuestions: numQuestions });
 
             if (fetchedQuestions) {
                 setQuestions(fetchedQuestions);
@@ -25,7 +29,7 @@ const QuizPage = () => {
         loadQuestions();
     }, [numQuestions]);
 
-    const handleAnswer = (isCorrect: any) => {
+    const handleAnswer = ({isCorrect}: { isCorrect: any }) => {
         if (isCorrect) {
             setScore(score + 1);
         }
@@ -40,13 +44,17 @@ const QuizPage = () => {
     return (
         <Layout>
             <ProgressBar current={currentQuestion} total={numQuestions} />
+            <div className="fixed top-4 right-4">
+                <Button onClick={settings.onOpen} size="icon">
+                    <Settings className="h-4 w-4" />
+                </Button>
+            </div>
             {loading ? (
-                <p></p>
+                <div className="flex min-h-screen w-full items-center justify-center text-center p-32">
+                    <Loader2 className="animate-spin" />
+                </div>
             ) : (
-                <QuestionCard
-                    question={questions[currentQuestion]}
-                    onAnswer={handleAnswer}
-                />
+                <QuestionCardStyled question={questions[currentQuestion]} onAnswer={handleAnswer} />
             )}
         </Layout>
     );
