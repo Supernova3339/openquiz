@@ -3,8 +3,7 @@ import Layout from '@/components/Layout';
 import {Button} from "@/components/ui/button";
 import {Settings} from "lucide-react";
 import React from "react";
-import {useSettings} from "@/hooks/use-settings";
-import {router} from "next/client";
+import {useSettings} from "@/hooks/use-settings"
 
 const WelcomePage = () => {
     const settings = useSettings();

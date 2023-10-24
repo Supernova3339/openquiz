@@ -4,11 +4,9 @@ import * as React from "react"
 import { Star } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
-import {router} from "next/client";
 import Link from "next/link";
 
 export function GithubStar() {
-    const { setTheme } = useTheme()
 
     return (
         <Link href="https://github.com/supernova3339/openquiz">
