@@ -83,7 +83,6 @@ class QuestionCard extends React.Component<{
                                     </Button>
                                 ))}
                             </div>
-                            {question.correctAnswer}
                         </div>
                     </CardContent>
                 </Card>
