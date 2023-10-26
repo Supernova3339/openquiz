@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { unescape } from 'lodash';
 
 class QuestionCard extends React.Component<{
     question: any;
@@ -67,10 +68,10 @@ class QuestionCard extends React.Component<{
                         <div className="space-y-4">
                             <h2 className="text-xl">{decodedQuestion}</h2>
                             <div className="space-y-2">
-                                <p>A: {choiceMappings.A}</p>
-                                <p>B: {choiceMappings.B}</p>
-                                <p>C: {choiceMappings.C}</p>
-                                <p>D: {choiceMappings.D}</p>
+                                <p>A: {unescape(choiceMappings.A)}</p>
+                                <p>B: {unescape(choiceMappings.B)}</p>
+                                <p>C: {unescape(choiceMappings.C)}</p>
+                                <p>D: {unescape(choiceMappings.D)}</p>
                             </div>
                             <div className="flex justify-between space-x-4">
                                 {Object.keys(choiceMappings).map((option) => (
@@ -82,6 +83,7 @@ class QuestionCard extends React.Component<{
                                     </Button>
                                 ))}
                             </div>
+                            {question.correctAnswer}
                         </div>
                     </CardContent>
                 </Card>
