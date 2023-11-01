@@ -28,6 +28,7 @@ The project is structured as follows:
 - [TypeScript](https://www.typescriptlang.org/) - A statically typed superset of JavaScript that enhances development safety and productivity.
 - [he](https://www.npmjs.com/package/he) - A library for decoding HTML entities in strings.
 - [shadcn/ui](https://github.com/shadcn-ui/ui) - A UI component library used for building user interfaces.
+- [next-pwa](https://github.com/shadowwalker/next-pwa) - A Zero Config PWA plugin
 
 ## Getting Started
 
